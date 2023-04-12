@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clevertap</title>
+    <!-- Notification Push javascript file -->
+    <!--<script src="/notificationPush.js"></script>-->
+    <script type="text/javascript">
+        var clevertap = { event: [], profile: [], account: [], onUserLogin: [], region:'us1', notifications: [], privacy: [] };
+        // replace with the CLEVERTAP_ACCOUNT_ID with the actual ACCOUNT ID value from your Dashboard -> Settings page
+        clevertap.account.push({ "id": "RKW-46K-6R6Z" });
+        clevertap.privacy.push({ optOut: false }); //set the flag to true, if the user of the device opts out of sharing their data
+        clevertap.privacy.push({ useIP: false }); //set the flag to true, if the user agrees to share their IP data
+        (function () {
+            var wzrk = document.createElement('script');
+            wzrk.type = 'text/javascript';
+            wzrk.async = true;
+            wzrk.src = ('https:' == document.location.protocol ? 'https://d2r1yp2w7bby2u.cloudfront.net' : 'http://static.clevertap.com') + '/js/clevertap.min.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wzrk, s);
+        })();
+    </script>
+
+</head>
+
+<body>
+
+    <h1>Group Unsubscribe</h1>
+    <!-- onUserLogin -->
+
+    <!-- event -->
+    <button id="event" onclick="pushEvent()">Push Event</button> <br><br>
+    <button id="login" onclick="onuserlogin()">OnUserLogin Unsubscribe</button><br><br>
+    <button id="login" onclick="onuserloginSubscribe()">Login Subscribe</button><br><br>
+
+    <script>
+        let pushEvent = () => {
+            clevertap.event.push("ProductViewed");
+        };
+        let onuserlogin = () => {
+            clevertap.onUserLogin.push({
+                "Site": {
+                    "Name": "Aayush web",
+                    "Identity": "1hKOmRA4el9Zt1WSfVJIVo4GRlm",
+                    "Email": "brunoclevertap@yahoo.com",
+                    "Gender": "M",
+                    "DOB": new Date(),
+                    "MSG-email": true,
+                    "MSG-push": true,
+                    "MSG-sms": true,
+                    "MSG-whatsapp": true,
+                    "category-unsubscribe": {
+                        "email": ["Movies"]
+                    }
+                },
+            });
+        };
+
+        let onuserloginSubscribe = () => {
+            clevertap.onUserLogin.push({
+                "Site": {
+                    "Name": "Aayush web",
+                    "Identity": "1hKOmRA4el9Zt1WSfVJIVo4GRlm",
+                    "Email": "brunoclevertap@yahoo.com",
+                    "Gender": "M",
+                    "DOB": new Date(),
+                    "MSG-email": true,
+                    "MSG-push": true,
+                    "MSG-sms": true,
+                    "MSG-whatsapp": true,
+                    "category-resubscribe": {
+                        "email": ["Football", "Movies"]
+                    }
+                },
+            });
+        };
+
+        
+
+        let showctid = () => {
+            var ctid = clevertap.getCleverTapID();
+            document.getElementById("test").innerHTML = ctid;
+        };
+
+        let clear = () => {
+            clevertap.clear();
+        };
+
+        const queryString = window.location.search;
+        console.log(queryString);
+        const urlParams = new URLSearchParams(queryString);
+        const email = urlParams.get('email')
+        console.log(email);
+    </script>
+</body>
+
+</html>
